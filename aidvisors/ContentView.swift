@@ -43,9 +43,29 @@ struct DashboardView: View {
 }
 
 struct SettingsView: View {
+    @State private var apiURL: String = UserDefaults.standard.string(forKey: "api_base_url") ?? APIService.shared.baseURL
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     var body: some View {
         NavigationView {
-            List {
+            Form {
+                Section(header: Text("API Configuration")) {
+                    TextField("API Base URL", text: $apiURL)
+                    
+                    Button("Save API URL") {
+                        if apiURL.isEmpty {
+                            alertMessage = "API URL cannot be empty"
+                            showAlert = true
+                            return
+                        }
+                        
+                        APIService.shared.updateBaseURL(newURL: apiURL)
+                        alertMessage = "API URL updated successfully"
+                        showAlert = true
+                    }
+                }
+                
                 Section(header: Text("Account")) {
                     Text("Profile")
                     Text("Notifications")
@@ -59,6 +79,13 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("API Configuration"),
+                    message: Text(alertMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
     }
 }

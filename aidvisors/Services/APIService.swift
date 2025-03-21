@@ -12,9 +12,27 @@ enum APIError: Error {
 
 class APIService {
     static let shared = APIService()
-    private let baseURL = "http://localhost:5000/api"
     
-    private init() {}
+    // Default to local development server
+    // This can be updated to your domain URL when you have one
+    #if DEBUG
+    var baseURL = "http://localhost:5000/api"
+    #else
+    var baseURL = "https://your-domain.com/api" // Update this with your domain when you have one
+    #endif
+    
+    private init() {
+        // Load from UserDefaults if a custom URL has been set
+        if let savedURL = UserDefaults.standard.string(forKey: "api_base_url") {
+            baseURL = savedURL
+        }
+    }
+    
+    // Allow changing the base URL if needed
+    func updateBaseURL(newURL: String) {
+        baseURL = newURL
+        UserDefaults.standard.set(newURL, forKey: "api_base_url")
+    }
     
     // MARK: - API Request
     private func request<T: Decodable>(endpoint: String, method: String = "GET", body: Data? = nil) -> AnyPublisher<T, APIError> {

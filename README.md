@@ -20,28 +20,28 @@ cd backend
 
 2. Create a virtual environment:
 ```bash
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 3. Install dependencies:
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 4. Initialize the database:
 ```bash
-flask --app run.py init-db
+python3 -m flask --app run.py init-db
 ```
 
 5. (Optional) Seed the database with sample data:
 ```bash
-flask --app run.py seed-db
+python3 -m flask --app run.py seed-db
 ```
 
 6. Run the development server:
 ```bash
-python run.py
+python3 run.py
 ```
 
 The API will be available at http://localhost:5000.
