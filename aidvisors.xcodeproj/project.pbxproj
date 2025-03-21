@@ -312,6 +312,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = rory.aidvisors;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = rorygeddes;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = rorygeddes;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=xros*]" = rorygeddes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -352,6 +355,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = rory.aidvisors;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = rorygeddes;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = rorygeddes;
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=xros*]" = rorygeddes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
