@@ -6,61 +6,65 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        TabView {
+            BudgetListView()
+                .tabItem {
+                    Label("Budgets", systemImage: "dollarsign.circle")
                 }
-                .onDelete(perform: deleteItems)
-            }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+            
+            TransactionsView()
+                .tabItem {
+                    Label("Transactions", systemImage: "arrow.left.arrow.right")
                 }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+            
+            DashboardView()
+                .tabItem {
+                    Label("Dashboard", systemImage: "chart.pie")
                 }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+            
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
         }
     }
 }
 
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+struct DashboardView: View {
+    var body: some View {
+        NavigationView {
+            Text("Dashboard coming soon!")
+                .navigationTitle("Dashboard")
+        }
+    }
+}
+
+struct SettingsView: View {
+    var body: some View {
+        NavigationView {
+            List {
+                Section(header: Text("Account")) {
+                    Text("Profile")
+                    Text("Notifications")
+                    Text("Privacy")
+                }
+                
+                Section(header: Text("App")) {
+                    Text("Appearance")
+                    Text("Data & Storage")
+                    Text("About")
+                }
+            }
+            .navigationTitle("Settings")
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
