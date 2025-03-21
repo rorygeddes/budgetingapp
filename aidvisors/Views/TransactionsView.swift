@@ -103,7 +103,7 @@ struct AddTransactionView: View {
                     TextField("Description", text: $description)
                     
                     TextField("Amount", text: $amount)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numbersAndPunctuation)
                     
                     Toggle("Is Expense", isOn: $isExpense)
                     

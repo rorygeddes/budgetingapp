@@ -113,7 +113,7 @@ struct AddBudgetView: View {
                 Section(header: Text("Budget Details")) {
                     TextField("Budget Name", text: $name)
                     TextField("Amount", text: $amount)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numbersAndPunctuation)
                 }
                 
                 Section(header: Text("Date Range")) {
